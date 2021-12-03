@@ -10,8 +10,8 @@ app.get('/', async function (req, res) {
         ssl: false,
     })
     await client.connect()
-    const res = await client.query('SELECT $1::text as message', ['Hello data!'])
-    const stuff = res.rows[0].message // Hello world!
+    const response = await client.query('SELECT $1::text as message', ['Hello data!'])
+    const stuff = response.rows[0].message // Hello world!
     await client.end()
     
     res.send(`Hello World! - Data: ${stuff}!\n`);
