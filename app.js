@@ -4,9 +4,9 @@ const { Client } = require('pg');
 app = express();
 
 app.get('/', async function (req, res) {
-    console.log('JesseDbConfig: ', process.env.jesseDbConfig);
+    console.log('JesseDbConfig: ', process.env['jesse-db-config']);
     const client = new Client({
-        connectionString: process.env.jesseDbConfig,
+        connectionString: process.env['jesse-db-config'],
         ssl: false,
     })
     await client.connect()
