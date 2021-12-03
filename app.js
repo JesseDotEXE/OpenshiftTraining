@@ -1,8 +1,20 @@
 var express = require('express');
+const { Client } = require('pg');
+
 app = express();
 
-app.get('/', function (req, res) {
-      res.send(`Hello World! - Secret Secret: ${process.env.jesseSecret}!\n`);
+app.get('/', async function (req, res) {
+    console.log('JesseDbConfig: ', process.env.jesseDbConfig);
+    const client = new Client({
+        connectionString: process.env.jesseDbConfig,
+        ssl: false,
+    })
+    await client.connect()
+    const res = await client.query('SELECT $1::text as message', ['Hello data!'])
+    const stuff = res.rows[0].message // Hello world!
+    await client.end()
+    
+    res.send(`Hello World! - Data: ${stuff}!\n`);
 });
 
 app.listen(8080, function () {
