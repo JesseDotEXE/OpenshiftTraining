@@ -2,7 +2,7 @@ var express = require('express');
 app = express();
 
 app.get('/', function (req, res) {
-      res.send('Hello World! - This is an update from Jesse!\n');
+      res.send(`Hello World! - Secret Secret: ${process.env.jesseSecret}!\n`);
 });
 
 app.listen(8080, function () {
